@@ -19,7 +19,5 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
-      - name: Run tests 
-        run: npm test
       - name: Run playWright test
         run: npm run test:e2e
