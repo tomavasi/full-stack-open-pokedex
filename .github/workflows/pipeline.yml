@@ -23,3 +23,9 @@ jobs:
         run: npx playwright install --with-deps && npm run test:e2e
       - name: 'Change ownership build file'
         run: chmod -v +x build_step.sh
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API }}
+          wait-for-success: true
