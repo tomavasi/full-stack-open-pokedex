@@ -14,10 +14,10 @@ jobs:
         with:
           node-version: '20'
       - name: Install dependencies 
-        run: npm install  
+        run: npm install ci 
       - name: Check style
         run: npm run lint
       - name: Build
         run: npm run build
       - name: Run playWright test
-        run: npx playwright install  && npm run test:e2e
+        run: npx playwright install --with-deps && npm run test:e2e
