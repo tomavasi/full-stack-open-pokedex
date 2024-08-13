@@ -22,4 +22,4 @@ jobs:
       - name: Run playWright test
         run: npx playwright install --with-deps && npm run test:e2e
       - name: 'Change ownership build file'
-        run: chmod -v +x build_step.sh && ./build_step.sh
+        run: chmod -v +x build_step.sh
