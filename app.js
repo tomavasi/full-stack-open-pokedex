@@ -1,4 +1,4 @@
-import express from "express";
+import express from "express"
 
 const app = express()
 
@@ -8,5 +8,5 @@ const PORT = process.env.PORT || 5000
 app.use(express.static("dist"))
 
 app.listen(PORT, () => {
-  console.log(`server started on port ${PORT}`);
-});
+  console.log(`server started on port ${PORT}`)
+})
