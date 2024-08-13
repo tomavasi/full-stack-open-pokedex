@@ -26,6 +26,7 @@ jobs:
         run: npx playwright install --with-deps && npm run test:e2e
       - name: 'Change ownership build file'
         run: chmod -v +x build_step.sh
+        if: ${{ github.event_name == 'push' }}
       - name: Deploy to production
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
