@@ -11,6 +11,8 @@ on:
       - opened 
       - synchronize 
       - closed
+env:
+    CONDITION: ${{ contains(github.event.commits, 'skip') }}
 
 jobs:
   build_and_test:
@@ -31,7 +33,7 @@ jobs:
 
   deploy:
     needs: build_and_test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && ${{ github.env.CONDITION == 'false' }}
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
@@ -46,7 +48,7 @@ jobs:
   
   versioning:
     needs: deploy
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && ${{ github.env.CONDITION == 'false' }}
     runs-on: ubuntu-20.04
     permissions:
       contents: write
