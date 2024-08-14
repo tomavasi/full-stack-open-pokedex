@@ -4,12 +4,12 @@ on:
   push:
     branches:
       - secondary
+      - main
 env:
     CONDITION: ${{ contains(github.event.commits, 'skip') }}
 jobs:
   a_test_job:
     runs-on: ubuntu-20.04
-    if: ${{ github.env.CONDITION == 'true' }}
     steps:
       - uses: actions/checkout@v4
       - name: github context
