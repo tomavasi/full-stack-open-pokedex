@@ -6,7 +6,7 @@ on:
       - secondary
 env:
     COMMITS: ${{ (github.event.commits) }}
-    CONDITION: ${{ contains("$COMMITS", 'skip') }}
+    CONDITION: ${{ contains(env.COMMITS, 'skip') }}
 jobs:
   a_test_job:
     runs-on: ubuntu-20.04
