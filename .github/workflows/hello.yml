@@ -4,10 +4,13 @@ on:
   push:
     branches:
       - secondary
-
+env:
+    COMMITS: ${{ (github.event.commits) }}
+    CONDITION: ${{ constains("$COMMITS", 'skip') }}
 jobs:
   a_test_job:
     runs-on: ubuntu-20.04
+    if: ${{ github.env.CONDITION == 'true' }}
     steps:
       - uses: actions/checkout@v4
       - name: github context
@@ -15,9 +18,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: commits
-        env:
-          COMMITS: ${{ toJson(github.event.commits) }}
-        run: echo "$COMMITS"
+        run: echo "something"
       - name: commit messages
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
