@@ -3,18 +3,22 @@ name: Hello World!
 on:
   push:
     branches:
-      - main
-
+      - secondary
+env:
+    CONDITION: ${{ contains(github.event.commits, 'skip') }}
 jobs:
-  hello_world_job:
+  a_test_job:
     runs-on: ubuntu-20.04
+    if: ${{ github.env.CONDITION == 'true' }}
     steps:
-      - name: Say hello
-        run: |
-          echo "Hello World!"
-      - name: Now it is
-        run: |
-          date -u
-      - name: Directory content
-        run: |
-          ls -l
+      - uses: actions/checkout@v4
+      - name: github context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: commits
+        run: echo "something"
+      - name: commit messages
+        env:
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+        run: echo "$COMMIT_MESSAGES"
