@@ -33,7 +33,7 @@ jobs:
 
   deploy:
     needs: build_and_test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && ${{ github.env.CONDITION == 'false' }}
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'skip')
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
@@ -48,7 +48,7 @@ jobs:
   
   versioning:
     needs: deploy
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && ${{ github.env.CONDITION == 'false' }}
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'  && !contains(github.event.head_commit.message, 'skip')
     runs-on: ubuntu-20.04
     permissions:
       contents: write
