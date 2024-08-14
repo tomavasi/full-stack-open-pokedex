@@ -7,7 +7,10 @@ on:
       - secondary
   pull_request:
     branches: [main, master]
-    types: [opened, synchronize, closed]
+    types: 
+      - opened 
+      - synchronize 
+      - closed
 
 jobs:
   build_and_test:
@@ -44,15 +47,11 @@ jobs:
   versioning:
     needs: deploy
     if: github.event.pull_request.merged == true
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     permissions:
       contents: write
     steps:
     - uses: actions/checkout@v4
-      with:
-        ref: ${{ github.event.pull_request.merge_commit_sha }}
-        fetch-depth: '0'
-
     - name: Bump version and push tag
       uses: anothrNick/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
       env:
